@@ -1,1 +1,73 @@
-this is test.txt
+Git で管理したいディレクトリを作成→移動。
+>mkdir ディレクトリ
+>cd ディレクトリ
+
+Gitを使う宣言
+.git フォルダが作成される。
+>git init
+Gitで管理したくないものはここに記述。
+>vi .gitignore
+
+ユーザー名・メールアドレスの設定
+事前に GitHub で登録が必要。
+>git config user.email メールアドレス
+>git config user.name ユーザ名
+--global オプションをつけて git config --global user.name ユーザ名 のようにすると、そのPC上で行なう全ての操作に対して常にこの情報を使うようになる。
+
+config 設定の確認
+>git config --list
+>git config 確認したい設定
+--list で全ての設定を確認可能
+
+config 設定の削除
+git config --unset 削除したい設定
+
+コミット準備
+
+事前確認
+ファイルの状態を確認
+>git status
+ちなみに、ここで git checkout -- ファイル名 とすると変更前に戻すことが出来る。
+差分を確認（ステージングエリアに上げる前）
+>git diff
+add後(ステージングエリアに上げた後)は git diff --cached で確認出来る。
+
+☆☆☆管理対象に追加
+管理対象に追加=「ステージングエリアに上げる」という言い方をすることもある。
+>git add 管理対象にしたいもの
+>git add . 今のディレクトリより下のものを全て管理対象に追加。 
+
+add後確認
+ファイルの状態を確認
+git status
+差分を確認
+>git diff --cached
+
+☆☆☆コミット
+☆☆☆コメント付きでコミット
+>git commit -m "first comment"
+
+コミット後の確認
+コミットログを確認
+>git log
+>git log --oneline 1コミットにつき1行だけのコンパクト表示で見れる。
+>git log -p xxxxxx どこが変更されているか詳細が見れる。 
+>git log --stat どのファイルがどれくらい変更されてるかざっと見れる。
+
+origin 登録
+☆☆☆共有リポジトリを登録。
+https://github.com/xxx/xxx.git に「origin」というあだ名をつけるようなイメージ。
+>git remote add origin https://github.com/xxx/xxx.git
+>git remote add [name] [url]。
+origin は共有リポジトリのこと。レポジトリの場所(URL)の別名。
+
+共有リポジトリに反映
+☆☆☆ローカルでの開発内容を共有リポジトリに反映させる。
+>git push -u origin master
+origin は共有リポジトリのこと。レポジトリの場所(URL)の別名。
+master はブランチ（枝分かれ）の名前。ちなみに master は大事なブランチなので、個人利用では自由にpushしても大丈夫だけど、チームでの場合はmasterには通常pushしないので注意。ブランチはGUIから確認可能（<>Codeタブのすぐ下に n branches と出ていて、クリックすると詳細が見れる）。
+「-u」オプションについて
+省略の呪文。git push -u origin master とすると、次回から git push だけで引数に指定した origin master で勝手に push してくれる。
+
+☆☆☆2.ローカルに、forkした自分のリポジトリをclone(ダウンロード)
+>git clone https://github.com/(自分のユーザ名)/(フォークしたいリポジトリ.git)
